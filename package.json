@@ -1,0 +1,23 @@
+{
+  "name": "google-translate-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@vitalets/google-translate-api": "^9.1.0",
+    "bucky.js": "^1.2.1",
+    "chalk": "^5.2.0",
+    "commander": "^10.0.0",
+    "inquirer": "^9.1.5",
+    "open": "^9.1.0"
+  },
+  "description": ""
+}
