@@ -1,23 +1,34 @@
 {
   "name": "google-translate-cli",
+  "description": "A simple translation CLI using the Google API",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node .",
+    "dev": "tsx index.ts",
+    "build": "tsc",
+    "build:start": "tsc && node .",
+    "build:cli": "tsc && npm i && npm i -g"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "isBucky <bucky.developer@gmail.com>",
+  "license": "Apache-2.0",
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.15.11",
     "tsx": "^3.12.6",
     "typescript": "^5.0.3"
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^9.1.0",
+    "bucky.db-local": "^1.2.1",
     "bucky.js": "^1.2.1",
     "chalk": "^5.2.0",
     "commander": "^10.0.0",
+    "http-proxy-agent": "^5.0.0",
     "inquirer": "^9.1.5",
+    "inquirer-fuzzy-path": "^2.3.0",
+    "inquirer-search-list": "^1.2.6",
     "open": "^9.1.0"
-  },
-  "description": ""
+  }
 }
