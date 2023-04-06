@@ -2,7 +2,7 @@
   "name": "google-translate-cli",
   "description": "A simple translation CLI using the Google API",
   "version": "1.0.0",
-  "main": "/dist/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "start": "node .",
     "dev": "tsx index.ts",
@@ -26,12 +26,12 @@
     "@vitalets/google-translate-api": "^9.1.0",
     "bucky.db-local": "^1.2.1",
     "bucky.js": "^1.2.1",
-    "chalk": "^5.2.0",
+    "chalk": "4.1.2",
     "commander": "^10.0.0",
     "inquirer": "8.2.5",
     "inquirer-fuzzy-path": "^2.3.0",
     "inquirer-search-list": "^1.2.6",
     "object.mn": "^1.2.4",
-    "open": "^9.1.0"
+    "open": "8.4.2"
   }
 }
