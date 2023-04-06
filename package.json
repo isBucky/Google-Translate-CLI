@@ -18,6 +18,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
+    "@types/inquirer-fuzzy-path": "^2.3.6",
     "@types/node": "^18.15.11",
     "tsx": "^3.12.6",
     "typescript": "^5.0.3"

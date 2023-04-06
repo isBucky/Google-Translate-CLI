@@ -20,7 +20,7 @@ class Translate extends Commander {
     constructor() {
         super();
 
-        inquirer.registerPrompt('searchList', searchList);
+        inquirer.registerPrompt('search-list', searchList);
         inquirer.registerPrompt('path', fuzzy);
 
         this.db = new Database({});
@@ -78,7 +78,7 @@ class Translate extends Commander {
     }
 
     async translateFile() {
-        const { path } = await inquirer.prompt({
+        const { path } = await inquirer.prompt([{
             type: 'path',
             name: 'path',
             message: 'select file path:',
@@ -97,7 +97,7 @@ class Translate extends Commander {
 
                 return true;
             }
-        });
+        }]);
 
         if (!isFile(path)) return console.log(chalk.red('!') + chalk.bold.red(' File not found!'));
         switch((path.split('/').at(-1))?.split('.').pop()) {
@@ -174,12 +174,12 @@ class Translate extends Commander {
     }
 
     async to() {
-        const { language } = await inquirer.prompt({
-            type: 'searchList',
+        const { language } = await inquirer.prompt([{
+            type: 'search-list',
             name: 'language',
             message: 'Choose which default language you want to use for translations:',
             choices: await this.languages()
-        });
+        }]);
 
         this.db.set('defaultLanguage', language);
         return console.log(chalk.green('!') + chalk.bold.white(` The chosen language (${language}) has been set as default in translations.`));
