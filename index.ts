@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import searchList from 'inquirer-search-list';
 import { translate } from '@vitalets/google-translate-api';
 import fuzzy from 'inquirer-fuzzy-path';
-import createHttpAgent from 'http-proxy-agent';
+import ObjectManager from 'object.mn';
 import { readFile, writeFile } from 'node:fs/promises';
 import open from 'open';
 import { isFile } from 'bucky.js';
@@ -99,9 +99,60 @@ class Translate extends Commander {
             }
         });
 
-        if (!isFile(path)) console.log('aaaaa');
+        if (!isFile(path)) return console.log(chalk.red('!') + chalk.bold.red(' File not found!'));
         switch((path.split('/').at(-1))?.split('.').pop()) {
             case 'json':
+                try {
+                    const data = JSON.parse(await readFile(path, 'utf8')),
+                        messages = await resolveMessages(),
+                        pathTranslated = (path.split('/').at(-1))?.split('.')[0] + '-translated.json',
+                        message = messages.map(({ text }, index) => `${index}==${JSON.stringify(text)}`).join('//');
+                                
+                    async function resolveMessages() {
+                        let messages = [];
+                    
+                        function resolvePaths(obj: object, currentPath?: string) {
+                            return new Promise(async(resolve, reject) => {
+                                for (let [key, value] of Object.entries(obj)) {
+                                    if (typeof value == 'string' || Array.isArray(value)) {
+                                        if (!value.length) continue;
+                    
+                                        messages.push({
+                                            path: currentPath ? currentPath + '/' + key : key,
+                                            text: value
+                                        } as never);
+                                        continue;
+                                    }
+                    
+                                    if (isObject(value) && Object.keys(value).length)
+                                        resolvePaths(value, currentPath ? currentPath + '/' + key : key);
+                                }
+                    
+                                return resolve(true);
+                            });
+                        }
+                    
+                        function isObject(content: any) {
+                            return !Array.isArray(content) && typeof content === 'object' && content !== null;
+                        }
+                    
+                        await resolvePaths(data);
+                        return messages;
+                    }
+
+                    const { text } = await translate(message, { to: this.db.get('defaultLanguage') ?? 'en' }),
+                        newMessages = text.split('//').map(message => message.split('==')),
+                        objectMessages = new ObjectManager({});
+
+                    for (let [index, value] of newMessages) objectMessages.set(messages[index].path, JSON.parse(value));
+                    await writeFile(pathTranslated, JSON.stringify(objectMessages.objectData, null, 4));
+                    return console.log(
+                        chalk.green('!') +
+                        chalk.bold.white(` Translation completed successfully, path: `) +
+                        chalk.bold.gray(pathTranslated));
+                } catch(error: any) {
+                    throw new Error(error);
+                }
                 break;
 
             case 'txt':

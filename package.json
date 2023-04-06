@@ -25,10 +25,10 @@
     "bucky.js": "^1.2.1",
     "chalk": "^5.2.0",
     "commander": "^10.0.0",
-    "http-proxy-agent": "^5.0.0",
     "inquirer": "^9.1.5",
     "inquirer-fuzzy-path": "^2.3.0",
     "inquirer-search-list": "^1.2.6",
+    "object.mn": "^1.2.4",
     "open": "^9.1.0"
   }
 }
