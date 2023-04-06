@@ -8,7 +8,7 @@
     "dev": "tsx index.ts",
     "build": "tsc",
     "build:start": "tsc && node .",
-    "build:cli": "tsc && npm i && npm i -g"
+    "build:cli": "npm i && tsc && npm i -g"
   },
   "bin": {
     "translate": "./dist/index.js"
@@ -33,5 +33,8 @@
     "inquirer-search-list": "^1.2.6",
     "object.mn": "^1.2.4",
     "open": "8.4.2"
+  },
+  "engines": {
+    "node": ">=19.6.0"
   }
 }
